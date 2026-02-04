@@ -9,15 +9,18 @@ ENV ROSDISTRO_INDEX_URL=file:///etc/ros/rosdep/index-v4.yaml
 
 RUN mkdir -p /root/offline-resources
 
+COPY offline-resources/sources.list /etc/apt/sources.list
 WORKDIR /root/offline-resources
 RUN apt-get update \
-    && apt install -y --no-install-recommends \
+    && apt install -y wget git \
         python3-pip python3-dev python3-venv \
         ros-foxy-ackermann-msgs ros-foxy-derived-object-msgs \
     && apt clean && rm -rf /var/lib/apt/lists/*
 
 COPY offline-resources/*.whl /root/offline-resources/
 RUN python3 -m pip install --upgrade pip \
+    -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple \
+    && pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple \
     && python3 -m pip install --no-index --find-links=/root/offline-resources/ *.whl \
     && rm -rf /root/.cache/pip
 
