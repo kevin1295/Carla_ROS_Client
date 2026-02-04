@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  carla-server:
+  carla_server:
     image: carlasim/carla:0.9.13
     runtime: nvidia
     network_mode: host
@@ -11,15 +11,23 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     command: bash CarlaUE4.sh -nosound
 
-  ros-client:
-    image: goldfish1295/carla_ros_client:0.9.13-foxy
-    depends_on:
-      - carla-server
+  ros_client:
+    image: goldfish1295/carla_ros_client:0.9.13-foxy-cn
+    container_name: ros_client
+    runtime: nvidia
     network_mode: host
-    environment:
-      - ROS_DOMAIN_ID=1
-    volumes:
-      - ../:/root/ros2_ws:rw
-    working_dir: /root/ros2_ws
-    stdin_open: true
     tty: true
+    stdin_open: true
+    # 设备挂载
+    devices:
+      - /dev/snd:/dev/snd
+      - /dev/dri:/dev/dri
+    # 环境变量
+    environment:
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    # 目录挂载
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ../:/root/ros2_ws:rw
