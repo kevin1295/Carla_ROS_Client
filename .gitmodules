@@ -1,0 +1,3 @@
+[submodule "offline-resources/ros-bridge"]
+	path = offline-resources/ros-bridge
+	url = git@github.com:carla-simulator/ros-bridge.git
