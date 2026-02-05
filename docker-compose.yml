@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 services:
   carla_server:
     container_name: carla_server

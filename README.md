@@ -9,7 +9,8 @@ Image is currently available at docker hub (goldfish1295/carla_ros_client:0.9.13
 ## Plan
 
 - [ ] Check if there is something I forgot to add during my other projects.
-- [ ] Add support for other versions of ROS and carla
+- [x] ~~Add support for other versions of ROS and carla~~  
+Please read [this issue](https://github.com/carla-simulator/ros-bridge/issues/763)
 
 ## Usage
 
