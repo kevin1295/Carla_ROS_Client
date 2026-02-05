@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   carla_server:
+    container_name: carla_server
     image: carlasim/carla:0.9.13
     runtime: nvidia
     network_mode: host
